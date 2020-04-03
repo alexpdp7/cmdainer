@@ -1,1 +1,7 @@
 Tries to make it easy to run commands from Docker images.
+
+$ cp cmdocker ~/.local/bin
+$ cmdocker add-wrapper busy_touch /bin/touch busybox
+$ ln -s ~/.local/bin/cmdocker ~/.local/bin/busy_touch
+$ busy_touch ~/foo bar  # will work with any absolute or relative path inside $HOME
+
