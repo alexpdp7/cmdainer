@@ -11,7 +11,7 @@ directories = "2.0.2"
 users = "0.9.1"
 structopt = "0.3.12"
 confy = "0.4.0"
-serde = { version = "1.0.105", features = ["derive"] }
+serde = { version = "1.0.106", features = ["derive"] }
 atty = "0.2.14"
 
 [dev-dependencies]
