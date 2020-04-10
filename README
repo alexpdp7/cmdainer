@@ -1,7 +1,8 @@
 Tries to make it easy to run commands from Docker images.
 
-$ cp cmdocker ~/.local/bin
-$ cmdocker add-wrapper busy_touch /bin/touch busybox
-$ ln -s ~/.local/bin/cmdocker ~/.local/bin/busy_touch
-$ busy_touch ~/foo bar  # will work with any absolute or relative path inside $HOME
+Right now we only support Linux (macOS probably works, Windows will not as we create symlinks).
 
+$ cp cmdocker ~/.local/bin  # or some other directory in your $PATH you can write to
+$ cmdocker add-wrapper busy_touch /bin/touch busybox
+Creating "/home/user/.local/bin/busy_touch" as symlink to "/home/user/.local/bin/cmdocker"
+$ busy_touch ~/foo bar  # will work with any absolute or relative path inside $HOME
