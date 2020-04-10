@@ -9,6 +9,6 @@ edition = "2018"
 [dependencies]
 directories = "2.0.2"
 users = "0.9.1"
-structopt = "0.3.12"
+structopt = "0.3.13"
 confy = "0.4.0"
 serde = { version = "1.0.105", features = ["derive"] }
