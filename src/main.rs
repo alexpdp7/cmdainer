@@ -39,14 +39,16 @@ fn main() {
         ));
     }
     std::process::exit(match CmdockerArgs::from_args() {
-        CmdockerArgs::AddWrapper { name, path, image } => {
-            let mut config = config;
-            config.commands.insert(name, Command { path, image });
-            confy::store("cmdocker", config).unwrap();
-            0
-        }
+        CmdockerArgs::AddWrapper { name, path, image } => add_wrapper(config, name, path, image),
         CmdockerArgs::Wrapper { wrapper, args } => run_wrapper(config, wrapper, args),
     });
+}
+
+fn add_wrapper(config: CmdockerConfig, name: String, path: String, image: String) -> i32 {
+    let mut config = config;
+    config.commands.insert(name, Command { path, image });
+    confy::store("cmdocker", config).unwrap();
+    0
 }
 
 fn run_wrapper(config: CmdockerConfig, wrapper: String, args: std::vec::Vec<String>) -> i32 {
