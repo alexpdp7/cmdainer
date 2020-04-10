@@ -46,7 +46,17 @@ fn main() {
 
 fn add_wrapper(config: CmdockerConfig, name: String, path: String, image: String) -> i32 {
     let mut config = config;
-    config.commands.insert(name, Command { path, image });
+    config
+        .commands
+        .insert(name.clone(), Command { path, image });
+    let current_exe = std::env::current_exe().unwrap();
+    let mut wrapper_path = current_exe.clone();
+    wrapper_path.set_file_name(name);
+    println!(
+        "Creating {:?} as symlink to {:?}",
+        wrapper_path, current_exe
+    );
+    std::os::unix::fs::symlink(current_exe, wrapper_path).unwrap();
     confy::store("cmdocker", config).unwrap();
     0
 }
