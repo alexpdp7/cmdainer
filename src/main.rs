@@ -69,7 +69,11 @@ fn run_wrapper(config: CmdockerConfig, wrapper: String, args: std::vec::Vec<Stri
     let path = &command.path;
     std::process::Command::new("docker")
         .arg("run")
-        .arg("-it")
+        .arg(if atty::is(atty::Stream::Stdin) {
+            "-it"
+        } else {
+            "-i"
+        })
         .arg("--rm")
         .arg("-v")
         .arg(format!("{}:{}", home, home))
