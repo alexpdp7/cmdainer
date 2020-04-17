@@ -19,7 +19,14 @@ jobs:
 
   test:
     name: Test Suite
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        runs-on:
+          - ubuntu-latest
+        # Windows/macOS have the Docker binary, but no Docker service
+        # - windows-latest
+        # - macos-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -63,9 +70,15 @@ jobs:
           command: clippy
           args: -- -D warnings
 
-  release:
+  build-release:
     needs: [check, test, fmt, clippy]
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        runs-on:
+          - ubuntu-latest
+        # - windows-latest -- broken: std::os::unix and users crate
+          - macos-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -77,6 +90,18 @@ jobs:
         with:
           command: build
           args: --release
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-artifact@v1
+        with:
+          name: cmdocker-${{ matrix.runs-on }}
+          path: target/release/cmdocker
+
+  create-release:
+    needs: [build-release]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date "+%Y-%m-%d_%H%M")"
@@ -88,14 +113,32 @@ jobs:
         with:
           tag_name: release_${{ steps.date.outputs.date }}
           release_name: Release ${{ steps.date.outputs.date }}
-      - name: Upload Release Asset
-        id: upload-release-asset 
+      - name: Download Linux build
+        uses: actions/download-artifact@v1
+        with:
+          name: cmdocker-ubuntu-latest
+      - name: Download macOS build
+        uses: actions/download-artifact@v1
+        with:
+          name: cmdocker-macos-latest
+      - name: Debug
+        run: find .
+      - name: Upload Linux Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./target/release/cmdocker
-          asset_name: cmdocker
+          asset_path: cmdocker-ubuntu-latest/cmdocker
+          asset_name: cmdocker-linux
+          asset_content_type: application/x-executable
+      - name: Upload macOS Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: cmdocker-macos-latest/cmdocker
+          asset_name: cmdocker-macos
           asset_content_type: application/x-executable
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'
