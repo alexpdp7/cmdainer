@@ -67,7 +67,8 @@ fn run_wrapper(config: CmdockerConfig, wrapper: String, args: std::vec::Vec<Stri
     let command = config.commands.get(&wrapper).unwrap();
     let image = &command.image;
     let path = &command.path;
-    std::process::Command::new("docker")
+    let process = &mut std::process::Command::new("docker");
+    process
         .arg("run")
         .arg(if atty::is(atty::Stream::Stdin) {
             "-it"
@@ -80,18 +81,28 @@ fn run_wrapper(config: CmdockerConfig, wrapper: String, args: std::vec::Vec<Stri
         .arg("-e")
         .arg(format!("HOME={}", home))
         .arg("-w")
-        .arg(std::env::current_dir().unwrap())
-        .arg("-u")
-        .arg(format!(
+        .arg(std::env::current_dir().unwrap());
+    if is_podman() {
+        process.arg("--security-opt").arg("label=disable");
+    } else {
+        process.arg("-u").arg(format!(
             "{}:{}",
             users::get_current_uid(),
             users::get_current_gid()
-        ))
-        .arg(image)
-        .arg(path)
-        .args(args)
-        .status()
-        .unwrap()
-        .code()
-        .unwrap()
+        ));
+    }
+    process.arg(image).arg(path).args(args);
+    process.status().unwrap().code().unwrap()
+}
+
+fn is_podman() -> bool {
+    std::str::from_utf8(
+        &std::process::Command::new("docker")
+            .arg("--help")
+            .output()
+            .unwrap()
+            .stdout,
+    )
+    .unwrap()
+    .contains("podman")
 }
