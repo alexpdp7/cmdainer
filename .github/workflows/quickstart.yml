@@ -70,14 +70,13 @@ jobs:
           command: clippy
           args: -- -D warnings
 
-  build-release:
+  build-release-non-windows:
     needs: [check, test, fmt, clippy]
     runs-on: ${{ matrix.runs-on }}
     strategy:
       matrix:
         runs-on:
           - ubuntu-latest
-        # - windows-latest -- broken: std::os::unix and users crate
           - macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -97,8 +96,33 @@ jobs:
           name: cmdocker-${{ matrix.runs-on }}
           path: target/release/cmdocker
 
+  build-release-windows:
+    needs: [check, test, fmt, clippy]
+    runs-on: ${{ matrix.runs-on }}
+    strategy:
+      matrix:
+        runs-on:
+          - windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-artifact@v1
+        with:
+          name: cmdocker-${{ matrix.runs-on }}
+          path: target/release/cmdocker.exe
+
   create-release:
-    needs: [build-release]
+    needs: [build-release-non-windows,build-release-windows]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -121,6 +145,10 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: cmdocker-macos-latest
+      - name: Download Windows build
+        uses: actions/download-artifact@v1
+        with:
+          name: cmdocker-windows-latest
       - name: Upload Linux Release Asset
         uses: actions/upload-release-asset@v1
         env:
@@ -138,5 +166,14 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: cmdocker-macos-latest/cmdocker
           asset_name: cmdocker-macos
+          asset_content_type: application/x-executable
+      - name: Upload Windows Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: cmdocker-windows-latest/cmdocker.exe
+          asset_name: cmdocker.exe
           asset_content_type: application/x-executable
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'

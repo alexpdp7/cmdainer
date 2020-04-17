@@ -6,7 +6,7 @@ Tries to make it easy to run commands from Docker images. Your home is mounted i
 
 A working Docker installation (or podman-docker).
 
-Right now we only support Linux (macOS probably works, Windows will not as we create symlinks).
+Right now we only support Linux (macOS probably works, Windows has been tested superficially).
 
 ```
 $ wget https://github.com/alexpdp7/cmdocker/releases/latest/download/cmdocker-(linux|macos) -O ~/.local/bin/cmdocker  # or some other directory in your $PATH you can write to
@@ -15,6 +15,11 @@ $ cmdocker add-wrapper busy_touch /bin/touch busybox
 Creating "/home/user/.local/bin/busy_touch" as symlink to "/home/user/.local/bin/cmdocker"
 $ busy_touch ~/foo bar  # will work with any absolute or relative path inside $HOME
 ```
+
+# Windows notes
+
+* You will need to add a writable directory to your `$Env:Path` and install as `cmdocker.exe`
+* Your `$Env.USERPROFILE` will be mounted as `/home/user` inside the container, so absolute paths probably will not work.
 
 # Examples
 
