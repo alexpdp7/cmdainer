@@ -4,7 +4,7 @@ Tries to make it easy to run commands from Docker images. Your home is mounted i
 
 # Requirements and installation
 
-A working Docker installation.
+A working Docker installation (or podman-docker).
 
 Right now we only support Linux (macOS probably works, Windows will not as we create symlinks).
 
