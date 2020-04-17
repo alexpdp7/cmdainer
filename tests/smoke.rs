@@ -1,3 +1,4 @@
+#[cfg(not(windows))]
 use std::os::unix::fs::PermissionsExt;
 
 #[test]
@@ -12,6 +13,7 @@ fn smoke() {
     std::fs::copy(cmdocker, tmp_cmdocker.clone()).unwrap();
 
     // make it executable
+    #[cfg(not(windows))]
     std::fs::File::open(tmp_cmdocker)
         .unwrap()
         .set_permissions(std::fs::Permissions::from_mode(0o700))
