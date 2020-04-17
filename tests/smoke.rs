@@ -40,7 +40,14 @@ fn smoke() {
     assert_cmd::Command::new("busy_touch")
         .arg("foo")
         .env_clear()
-        .env("PATH", temp_path.clone())
+        .env(
+            "PATH",
+            format!(
+                "{}:{}",
+                temp_path.clone().to_str().unwrap(),
+                std::env::var("PATH").unwrap()
+            ),
+        )
         .env("HOME", temp_path.clone())
         .current_dir(temp_path.clone())
         .assert()
