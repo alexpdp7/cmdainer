@@ -121,8 +121,6 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: cmdocker-macos-latest
-      - name: Debug
-        run: find .
       - name: Upload Linux Release Asset
         uses: actions/upload-release-asset@v1
         env:
