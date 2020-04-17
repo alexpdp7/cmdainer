@@ -9,7 +9,7 @@ A working Docker installation.
 Right now we only support Linux (macOS probably works, Windows will not as we create symlinks).
 
 ```
-$ wget https://github.com/alexpdp7/cmdocker/releases/latest/download/cmdocker -O ~/.local/bin/cmdocker  # or some other directory in your $PATH you can write to
+$ wget https://github.com/alexpdp7/cmdocker/releases/latest/download/cmdocker-(linux|macos) -O ~/.local/bin/cmdocker  # or some other directory in your $PATH you can write to
 $ chmod +x ~/.local/bin/cmdocker
 $ cmdocker add-wrapper busy_touch /bin/touch busybox
 Creating "/home/user/.local/bin/busy_touch" as symlink to "/home/user/.local/bin/cmdocker"
