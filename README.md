@@ -6,7 +6,7 @@ Tries to make it easy to run commands from Docker images. Your home is mounted i
 
 A working Docker installation (or podman-docker).
 
-Right now we only support Linux (macOS probably works, Windows has been tested superficially).
+Right now we only support Linux (macOS and Windows have been tested superficially).
 
 ```
 $ wget https://github.com/alexpdp7/cmdocker/releases/latest/download/cmdocker-(linux|macos) -O ~/.local/bin/cmdocker  # or some other directory in your $PATH you can write to
