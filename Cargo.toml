@@ -10,7 +10,7 @@ edition = "2018"
 directories = "2.0.2"
 structopt = "0.3.14"
 confy = "0.4.0"
-serde = { version = "1.0.106", features = ["derive"] }
+serde = { version = "1.0.110", features = ["derive"] }
 atty = "0.2.14"
 
 [target.'cfg(not(windows))'.dependencies]
