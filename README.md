@@ -55,20 +55,17 @@ $ cmdocker add-wrapper mvn /usr/bin/mvn maven:latest
 $ mvn validate
 ```
 
-Check quickly other distribution packages:
-
-```
-$ cmdocker add-wrapper dnf-c8 /usr/bin/dnf centos:8
-$ dnf-c8 search jdk
-...
-java-11-openjdk-demo.x86_64 : OpenJDK Demos 11
-...
-```
-
 Connect to databases with client versions not packaged in your distro:
 
 ```
 $ cmdocker add-wrapper psql_12 /usr/bin/psql postgres:12
 $ psql_12 -V
 psql (PostgreSQL) 12.2 (Debian 12.2-2.pgdg100+1)
+```
+
+Use the latest asciidoctor without RubyGems:
+
+```
+$ cmdocker add-wrapper asciidoctor /usr/bin/asciidoctor asciidoctor/docker-asciidoctor
+$ asciidoctor ...
 ```
