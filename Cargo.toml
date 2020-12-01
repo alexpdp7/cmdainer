@@ -8,7 +8,7 @@ edition = "2018"
 
 [dependencies]
 directories = "3.0.1"
-structopt = "0.3.20"
+structopt = "0.3.21"
 confy = "0.4.0"
 serde = { version = "1.0.117", features = ["derive"] }
 atty = "0.2.14"
