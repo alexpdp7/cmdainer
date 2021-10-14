@@ -154,7 +154,8 @@ fn run_wrapper(config: CmdockerConfig, wrapper: String, args: std::vec::Vec<Stri
             users::get_current_gid()
         ));
     }
-    process.arg(image).arg(path).args(args);
+    process.arg(format!("--entrypoint={}", path));
+    process.arg(image).args(args);
     process.status().unwrap().code().unwrap()
 }
 
