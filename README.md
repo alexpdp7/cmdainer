@@ -4,6 +4,8 @@ Tries to make it easy to run commands from container images. Your home is mounte
 
 This used to be called cmdocker. See below for migrating your configuration.
 
+Check [toolbx](https://containertoolbx.org) and [whalebrew](https://github.com/whalebrew/whalebrew) for similar projects.
+
 # Requirements and installation
 
 A working `docker` command (even podman-docker).
