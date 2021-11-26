@@ -2,6 +2,8 @@
 
 Tries to make it easy to run commands from container images. Your home is mounted inside the container, so you can work on your files.
 
+This used to be called cmdocker. See below for migrating your configuration.
+
 # Requirements and installation
 
 A working `docker` command (even podman-docker).
@@ -34,6 +36,15 @@ $ cmdainer add-wrapper busy_touch /bin/touch busybox
 Creating "/home/user/.local/bin/busy_touch" as symlink to "/home/user/.local/bin/cmdainer"
 $ busy_touch ~/foo bar  # will work with any absolute or relative path inside $HOME
 ```
+
+# Migrating from cmdocker
+
+```
+$ mv ~/.config/cmdocker/ ~/.config/cmdainer
+$ mv ~/.config/cmdainer/cmdocker.toml ~/.config/cmdainer/cmdainer.toml
+```
+
+And update all symlinks to `cmdocker` to `cmdainer`.
 
 # Examples
 
