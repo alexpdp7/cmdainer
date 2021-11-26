@@ -4,17 +4,17 @@ use std::os::unix::fs::PermissionsExt;
 #[test]
 fn smoke() {
     // create a temporary dir
-    let temp_dir = tempdir::TempDir::new("cmdocker_tests").unwrap();
+    let temp_dir = tempdir::TempDir::new("cmdainer_tests").unwrap();
     let temp_path: std::path::PathBuf = temp_dir.path().to_path_buf();
 
-    // copy cmdocker there
-    let cmdocker = assert_cmd::cargo::cargo_bin("cmdocker");
-    let tmp_cmdocker = temp_path.join("cmdocker");
-    std::fs::copy(cmdocker, tmp_cmdocker.clone()).unwrap();
+    // copy cmdainer there
+    let cmdainer = assert_cmd::cargo::cargo_bin("cmdainer");
+    let tmp_cmdainer = temp_path.join("cmdainer");
+    std::fs::copy(cmdainer, tmp_cmdainer.clone()).unwrap();
 
     // make it executable
     #[cfg(not(windows))]
-    std::fs::File::open(tmp_cmdocker)
+    std::fs::File::open(tmp_cmdainer)
         .unwrap()
         .set_permissions(std::fs::Permissions::from_mode(0o700))
         .unwrap();
@@ -27,7 +27,7 @@ fn smoke() {
     assert!(!temp_path.join("foo").exists());
 
     // create a touch wrapper
-    assert_cmd::Command::new("cmdocker")
+    assert_cmd::Command::new("cmdainer")
         .arg("add-wrapper")
         .arg("busy_touch")
         .arg("/bin/touch")

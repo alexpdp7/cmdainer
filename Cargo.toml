@@ -1,5 +1,5 @@
 [package]
-name = "cmdocker"
+name = "cmdainer"
 version = "0.1.0"
 authors = ["alex <alex@pdp7.net>"]
 edition = "2021"

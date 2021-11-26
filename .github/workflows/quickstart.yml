@@ -93,8 +93,8 @@ jobs:
         id: upload-release-asset
         uses: actions/upload-artifact@v1
         with:
-          name: cmdocker-${{ matrix.runs-on }}
-          path: target/release/cmdocker
+          name: cmdainer-${{ matrix.runs-on }}
+          path: target/release/cmdainer
 
   build-release-windows:
     needs: [check, test, fmt, clippy]
@@ -118,8 +118,8 @@ jobs:
         id: upload-release-asset
         uses: actions/upload-artifact@v1
         with:
-          name: cmdocker-${{ matrix.runs-on }}
-          path: target/release/cmdocker.exe
+          name: cmdainer-${{ matrix.runs-on }}
+          path: target/release/cmdainer.exe
 
   create-release:
     needs: [build-release-non-windows,build-release-windows]
@@ -140,23 +140,23 @@ jobs:
       - name: Download Linux build
         uses: actions/download-artifact@v1
         with:
-          name: cmdocker-ubuntu-latest
+          name: cmdainer-ubuntu-latest
       - name: Download macOS build
         uses: actions/download-artifact@v1
         with:
-          name: cmdocker-macos-latest
+          name: cmdainer-macos-latest
       - name: Download Windows build
         uses: actions/download-artifact@v1
         with:
-          name: cmdocker-windows-latest
+          name: cmdainer-windows-latest
       - name: Upload Linux Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: cmdocker-ubuntu-latest/cmdocker
-          asset_name: cmdocker-linux
+          asset_path: cmdainer-ubuntu-latest/cmdainer
+          asset_name: cmdainer-linux
           asset_content_type: application/x-executable
       - name: Upload macOS Release Asset
         uses: actions/upload-release-asset@v1
@@ -164,8 +164,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: cmdocker-macos-latest/cmdocker
-          asset_name: cmdocker-macos
+          asset_path: cmdainer-macos-latest/cmdainer
+          asset_name: cmdainer-macos
           asset_content_type: application/x-executable
       - name: Upload Windows Release Asset
         uses: actions/upload-release-asset@v1
@@ -173,7 +173,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: cmdocker-windows-latest/cmdocker.exe
-          asset_name: cmdocker.exe
+          asset_path: cmdainer-windows-latest/cmdainer.exe
+          asset_name: cmdainer.exe
           asset_content_type: application/x-executable
     if: github.ref == 'refs/heads/master' && github.event_name == 'push'

@@ -81,7 +81,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "cmdocker"
+name = "cmdainer"
 version = "0.1.0"
 dependencies = [
  "assert_cmd",

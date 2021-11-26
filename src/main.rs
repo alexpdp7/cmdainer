@@ -3,7 +3,7 @@ use structopt::StructOpt;
 
 #[derive(StructOpt, Debug)]
 #[structopt(about = "Tries to make it easy to run commands from Docker images.")]
-enum CmdockerArgs {
+enum CmdainerArgs {
     Wrapper {
         wrapper: String,
         args: Vec<String>,
@@ -22,19 +22,19 @@ struct Command {
 }
 
 #[derive(Serialize, Deserialize, Default)]
-struct CmdockerConfig {
+struct CmdainerConfig {
     commands: std::collections::HashMap<String, Command>,
 }
 
 fn main() {
-    let config: CmdockerConfig = confy::load("cmdocker").unwrap();
+    let config: CmdainerConfig = confy::load("cmdainer").unwrap();
     let arg0_str = std::env::args().next().unwrap();
     let arg0 = std::path::Path::new(&arg0_str)
         .file_name()
         .unwrap()
         .to_str()
         .unwrap();
-    let not_wrapper = arg0.ends_with("cmdocker") || arg0.ends_with("cmdocker.exe");
+    let not_wrapper = arg0.ends_with("cmdainer") || arg0.ends_with("cmdainer.exe");
     if !not_wrapper {
         std::process::exit(run_wrapper(
             config,
@@ -42,13 +42,13 @@ fn main() {
             std::env::args().skip(1).collect(),
         ));
     }
-    std::process::exit(match CmdockerArgs::from_args() {
-        CmdockerArgs::AddWrapper { name, path, image } => add_wrapper(config, name, path, image),
-        CmdockerArgs::Wrapper { wrapper, args } => run_wrapper(config, wrapper, args),
+    std::process::exit(match CmdainerArgs::from_args() {
+        CmdainerArgs::AddWrapper { name, path, image } => add_wrapper(config, name, path, image),
+        CmdainerArgs::Wrapper { wrapper, args } => run_wrapper(config, wrapper, args),
     });
 }
 
-fn add_wrapper(config: CmdockerConfig, name: String, path: String, image: String) -> i32 {
+fn add_wrapper(config: CmdainerConfig, name: String, path: String, image: String) -> i32 {
     let mut config = config;
     config
         .commands
@@ -65,7 +65,7 @@ fn add_wrapper(config: CmdockerConfig, name: String, path: String, image: String
         wrapper_path, current_exe
     );
     create_link(current_exe, wrapper_path).unwrap();
-    confy::store("cmdocker", config).unwrap();
+    confy::store("cmdainer", config).unwrap();
     0
 }
 
@@ -117,7 +117,7 @@ fn get_cwd() -> String {
         .replace("\\", "/")
 }
 
-fn run_wrapper(config: CmdockerConfig, wrapper: String, args: std::vec::Vec<String>) -> i32 {
+fn run_wrapper(config: CmdainerConfig, wrapper: String, args: std::vec::Vec<String>) -> i32 {
     let (home, home_target) = get_homes();
     let command = config
         .commands
