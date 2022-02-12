@@ -37,14 +37,14 @@ fn main() {
     let not_wrapper = arg0.ends_with("cmdainer") || arg0.ends_with("cmdainer.exe");
     if !not_wrapper {
         std::process::exit(run_wrapper(
-            config,
+            &config,
             arg0.to_string(),
             std::env::args().skip(1).collect(),
         ));
     }
     std::process::exit(match CmdainerArgs::from_args() {
         CmdainerArgs::AddWrapper { name, path, image } => add_wrapper(config, name, path, image),
-        CmdainerArgs::Wrapper { wrapper, args } => run_wrapper(config, wrapper, args),
+        CmdainerArgs::Wrapper { wrapper, args } => run_wrapper(&config, wrapper, args),
     });
 }
 
@@ -117,7 +117,7 @@ fn get_cwd() -> String {
         .replace("\\", "/")
 }
 
-fn run_wrapper(config: CmdainerConfig, wrapper: String, args: std::vec::Vec<String>) -> i32 {
+fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<String>) -> i32 {
     let (home, home_target) = get_homes();
     let command = config
         .commands
