@@ -8,7 +8,17 @@ Check [toolbx](https://containertoolbx.org) and [whalebrew](https://github.com/w
 
 # Requirements and installation
 
-A working `docker` command (even podman-docker).
+A working `docker` command.
+
+You can also use `podman-docker`.
+When using `podman-docker`, rootless operation must be configured, see https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md .
+In particular, if you installed Podman using a package manager, you probably just need to configure `/etc/subuid` and `/etc/subgid` as described in that document.
+Briefly, check the `/etc/subuid` and `/etc/subgid` files in your system.
+If they do not exist or they do not contain an entry for your user, then run:
+
+```
+$ sudo usermod --add-subuids 100000-165535 --add-subgids 100000-165535 YOUR_USERNAME
+```
 
 Right now we only support Linux (macOS and Windows have been tested superficially).
 
