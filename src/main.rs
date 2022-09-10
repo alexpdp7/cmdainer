@@ -27,7 +27,7 @@ struct CmdainerConfig {
 }
 
 fn main() {
-    let config: CmdainerConfig = confy::load("cmdainer").unwrap();
+    let config: CmdainerConfig = confy::load("cmdainer", "cmdainer").unwrap();
     let arg0_str = std::env::args().next().unwrap();
     let arg0 = std::path::Path::new(&arg0_str)
         .file_name()
@@ -65,7 +65,7 @@ fn add_wrapper(config: CmdainerConfig, name: String, path: String, image: String
         wrapper_path, current_exe
     );
     create_link(current_exe, wrapper_path).unwrap();
-    confy::store("cmdainer", config).unwrap();
+    confy::store("cmdainer", "cmdainer", config).unwrap();
     0
 }
 
