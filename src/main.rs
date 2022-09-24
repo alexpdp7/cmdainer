@@ -1,8 +1,8 @@
+use clap::Parser;
 use serde::{Deserialize, Serialize};
-use structopt::StructOpt;
 
-#[derive(StructOpt, Debug)]
-#[structopt(about = "Tries to make it easy to run commands from Docker images.")]
+#[derive(Parser, Debug)]
+#[clap(about = "Tries to make it easy to run commands from Docker images.")]
 enum CmdainerArgs {
     Wrapper {
         wrapper: String,
@@ -42,7 +42,7 @@ fn main() {
             std::env::args().skip(1).collect(),
         ));
     }
-    std::process::exit(match CmdainerArgs::from_args() {
+    std::process::exit(match CmdainerArgs::parse() {
         CmdainerArgs::AddWrapper { name, path, image } => add_wrapper(config, name, path, image),
         CmdainerArgs::Wrapper { wrapper, args } => run_wrapper(&config, wrapper, args),
     });
