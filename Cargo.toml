@@ -8,15 +8,15 @@ edition = "2021"
 
 [dependencies]
 directories = "4.0.1"
-confy = "0.5.0"
-serde = { version = "1.0.145", features = ["derive"] }
+confy = "0.5.1"
+serde = { version = "1.0.147", features = ["derive"] }
 atty = "0.2.14"
-clap = { version = "4.0.13", features = ["derive"] }
+clap = { version = "4.0.18", features = ["derive"] }
 
 [target.'cfg(not(windows))'.dependencies]
 users = "0.11.0"
 
 [dev-dependencies]
 tempdir = "0.3.7"
-assert_cmd = "2.0.4"
+assert_cmd = "2.0.5"
 which = "4.3.0"
