@@ -9,7 +9,7 @@ edition = "2021"
 [dependencies]
 directories = "4.0.1"
 confy = "0.5.1"
-serde = { version = "1.0.145", features = ["derive"] }
+serde = { version = "1.0.147", features = ["derive"] }
 atty = "0.2.14"
 clap = { version = "4.0.18", features = ["derive"] }
 
