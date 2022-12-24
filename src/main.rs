@@ -58,7 +58,7 @@ fn add_wrapper(config: CmdainerConfig, name: String, path: String, image: String
     wrapper_path.set_file_name(if cfg!(not(windows)) {
         name
     } else {
-        format!("{}.exe", name)
+        format!("{name}.exe")
     });
     println!(
         "Creating {:?} as symlink to {:?}",
@@ -139,9 +139,9 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
         })
         .arg("--rm")
         .arg("-v")
-        .arg(format!("{}:{}", home, home_target))
+        .arg(format!("{home}:{home_target}"))
         .arg("-e")
-        .arg(format!("HOME={}", home_target))
+        .arg(format!("HOME={home_target}"))
         .arg("-w")
         .arg(get_cwd());
     if is_podman() {
@@ -154,7 +154,7 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
             users::get_current_gid()
         ));
     }
-    process.arg(format!("--entrypoint={}", path));
+    process.arg(format!("--entrypoint={path}"));
     process.arg(image).args(args);
     process.status().unwrap().code().unwrap()
 }
