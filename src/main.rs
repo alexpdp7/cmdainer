@@ -60,10 +60,7 @@ fn add_wrapper(config: CmdainerConfig, name: String, path: String, image: String
     } else {
         format!("{name}.exe")
     });
-    println!(
-        "Creating {:?} as symlink to {:?}",
-        wrapper_path, current_exe
-    );
+    println!("Creating {wrapper_path:?} as symlink to {current_exe:?}");
     create_link(current_exe, wrapper_path).unwrap();
     confy::store("cmdainer", "cmdainer", config).unwrap();
     0
