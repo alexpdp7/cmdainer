@@ -4,7 +4,7 @@ use std::os::unix::fs::PermissionsExt;
 #[test]
 fn smoke() {
     // create a temporary dir
-    let temp_dir = tempdir::TempDir::new("cmdainer_tests").unwrap();
+    let temp_dir = tempfile::TempDir::new().unwrap();
     let temp_path: std::path::PathBuf = temp_dir.path().to_path_buf();
 
     // copy cmdainer there
