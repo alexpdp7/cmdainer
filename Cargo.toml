@@ -9,7 +9,7 @@ edition = "2021"
 [dependencies]
 directories = "5.0.0"
 confy = "0.5.1"
-serde = { version = "1.0.159", features = ["derive"] }
+serde = { version = "1.0.160", features = ["derive"] }
 atty = "0.2.14"
 clap = { version = "4.1.11", features = ["derive"] }
 
@@ -18,5 +18,5 @@ users = "0.11.0"
 
 [dev-dependencies]
 tempfile = "3.5.0"
-assert_cmd = "2.0.10"
+assert_cmd = "2.0.11"
 which = "4.4.0"
