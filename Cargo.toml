@@ -11,7 +11,7 @@ directories = "5.0.0"
 confy = "0.5.1"
 serde = { version = "1.0.160", features = ["derive"] }
 atty = "0.2.14"
-clap = { version = "4.1.11", features = ["derive"] }
+clap = { version = "4.2.3", features = ["derive"] }
 
 [target.'cfg(not(windows))'.dependencies]
 users = "0.11.0"
