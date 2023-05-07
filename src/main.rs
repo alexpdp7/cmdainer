@@ -143,6 +143,7 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
         .arg(get_cwd());
     if is_podman() {
         process.arg("--security-opt").arg("label=disable");
+        process.arg("--userns=keep-id");
     } else {
         #[cfg(not(windows))]
         process.arg("-u").arg(format!(
