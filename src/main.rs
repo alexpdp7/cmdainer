@@ -152,6 +152,10 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
             users::get_current_gid()
         ));
     }
+
+    #[cfg(target_os = "linux")]
+    process.arg("--network=host");
+
     process.arg(format!("--entrypoint={path}"));
     process.arg(image).args(args);
     process.status().unwrap().code().unwrap()
