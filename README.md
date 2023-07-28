@@ -8,10 +8,9 @@ Check [toolbx](https://containertoolbx.org) and [whalebrew](https://github.com/w
 
 # Requirements and installation
 
-A working `docker` command.
+A working `podman` or `docker` command.
 
-You can also use `podman-docker`.
-When using `podman-docker`, rootless operation must be configured, see https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md .
+When using `podman` on Linux, rootless operation must be configured, see https://github.com/containers/podman/blob/main/docs/tutorials/rootless_tutorial.md .
 In particular, if you installed Podman using a package manager, you probably just need to configure `/etc/subuid` and `/etc/subgid` as described in that document.
 Briefly, check the `/etc/subuid` and `/etc/subgid` files in your system.
 If they do not exist or they do not contain an entry for your user, then run:
@@ -49,6 +48,11 @@ $ cmdainer add-wrapper busy_touch /bin/touch busybox
 Creating "/home/user/.local/bin/busy_touch" as symlink to "/home/user/.local/bin/cmdainer"
 $ busy_touch ~/foo bar  # will work with any absolute or relative path inside $HOME
 ```
+
+You can use a further argument to specify the architecture to use.
+
+In theory, Podman for macOS ARM-based machines already ships configured with qemu to run x86-64 images.
+See https://github.com/containers/podman/issues/11458#issuecomment-1257268091 for details.
 
 # Migrating from cmdocker
 
