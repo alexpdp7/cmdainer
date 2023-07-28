@@ -11,6 +11,7 @@ directories = "5.0.1"
 confy = "0.5.1"
 serde = { version = "1.0.183", features = ["derive"] }
 clap = { version = "4.3.21", features = ["derive"] }
+which = "4.4.0"
 
 [target.'cfg(not(windows))'.dependencies]
 users = "0.11.0"
@@ -18,4 +19,3 @@ users = "0.11.0"
 [dev-dependencies]
 tempfile = "3.7.1"
 assert_cmd = "2.0.12"
-which = "4.4.0"
