@@ -76,7 +76,7 @@ jobs:
     strategy:
       matrix:
         runs-on:
-          - ubuntu-latest
+          - ubuntu-20.04  # 22.04 produces binaries which are not EL8-compatible
           - macos-latest
     steps:
       - uses: actions/checkout@v2
