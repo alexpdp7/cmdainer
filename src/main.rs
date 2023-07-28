@@ -1,5 +1,6 @@
 use clap::Parser;
 use serde::{Deserialize, Serialize};
+use std::io::IsTerminal;
 
 #[derive(Parser, Debug)]
 #[clap(about = "Tries to make it easy to run commands from Docker images.")]
@@ -129,7 +130,7 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
     let process = &mut std::process::Command::new("docker");
     process
         .arg("run")
-        .arg(if atty::is(atty::Stream::Stdin) {
+        .arg(if std::io::stdin().is_terminal() {
             "-it"
         } else {
             "-i"
