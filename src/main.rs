@@ -127,7 +127,7 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
         .unwrap();
     let image = &command.image;
     let path = &command.path;
-    let process = &mut std::process::Command::new("docker");
+    let process = &mut std::process::Command::new(if is_podman() { "podman" } else { "docker" });
     process
         .arg("run")
         .arg(if std::io::stdin().is_terminal() {
@@ -163,13 +163,5 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
 }
 
 fn is_podman() -> bool {
-    std::str::from_utf8(
-        &std::process::Command::new("docker")
-            .arg("--help")
-            .output()
-            .unwrap()
-            .stdout,
-    )
-    .unwrap()
-    .contains("podman")
+    which::which("podman").is_ok()
 }
