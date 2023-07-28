@@ -13,6 +13,7 @@ enum CmdainerArgs {
         name: String,
         path: String,
         image: String,
+        arch: Option<String>,
     },
 }
 
@@ -20,6 +21,7 @@ enum CmdainerArgs {
 struct Command {
     path: String,
     image: String,
+    arch: Option<String>,
 }
 
 #[derive(Serialize, Deserialize, Default)]
@@ -44,16 +46,27 @@ fn main() {
         ));
     }
     std::process::exit(match CmdainerArgs::parse() {
-        CmdainerArgs::AddWrapper { name, path, image } => add_wrapper(config, name, path, image),
+        CmdainerArgs::AddWrapper {
+            name,
+            path,
+            image,
+            arch,
+        } => add_wrapper(config, name, path, image, arch),
         CmdainerArgs::Wrapper { wrapper, args } => run_wrapper(&config, wrapper, args),
     });
 }
 
-fn add_wrapper(config: CmdainerConfig, name: String, path: String, image: String) -> i32 {
+fn add_wrapper(
+    config: CmdainerConfig,
+    name: String,
+    path: String,
+    image: String,
+    arch: Option<String>,
+) -> i32 {
     let mut config = config;
     config
         .commands
-        .insert(name.clone(), Command { path, image });
+        .insert(name.clone(), Command { path, image, arch });
     let current_exe = std::env::current_exe().unwrap();
     let mut wrapper_path = current_exe.clone();
     wrapper_path.set_file_name(if cfg!(not(windows)) {
@@ -152,6 +165,11 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
             users::get_current_uid(),
             users::get_current_gid()
         ));
+    }
+
+    if let Some(arch) = &command.arch {
+        process.arg("--arch");
+        process.arg(arch);
     }
 
     #[cfg(target_os = "linux")]
