@@ -34,6 +34,7 @@ $ chmod +x ~/.local/bin/cmdainer
 ```
 % curl --location https://github.com/alexpdp7/cmdainer/releases/latest/download/cmdainer-macos > /usr/local/bin/cmdainer
 % chmod +x /usr/local/bin/cmdainer
+% xattr -d com.apple.quarantine /usr/local/bin/cmdainer  # you might need this if macOS complains that the binary is not trusted
 ```
 
 ## Windows notes

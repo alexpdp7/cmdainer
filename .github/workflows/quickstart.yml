@@ -110,16 +110,22 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
+          target: aarch64-apple-darwin
       - uses: actions-rs/cargo@v1
         with:
           command: build
           args: --release
+      - uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --release --target=aarch64-apple-darwin
+      - run: lipo -create -output target/cmdainer target/release/cmdainer target/aarch64-apple-darwin/release/cmdainer
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-artifact@v1
         with:
           name: cmdainer-${{ matrix.runs-on }}
-          path: target/release/cmdainer
+          path: target/cmdainer
 
   build-release-windows:
     needs: [check, test, fmt, clippy]
