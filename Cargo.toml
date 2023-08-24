@@ -10,7 +10,7 @@ edition = "2021"
 directories = "5.0.1"
 confy = "0.5.1"
 serde = { version = "1.0.185", features = ["derive"] }
-clap = { version = "4.3.23", features = ["derive"] }
+clap = { version = "4.3.24", features = ["derive"] }
 which = "4.4.0"
 
 [target.'cfg(not(windows))'.dependencies]
