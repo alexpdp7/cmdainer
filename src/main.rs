@@ -184,7 +184,5 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
 }
 
 fn is_podman() -> bool {
-    let result = which::which("podman");
-    debug!("checked for podman: {:?}", result);
-    result.is_ok()
+    true
 }
