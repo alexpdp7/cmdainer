@@ -54,6 +54,11 @@ You can use a further argument to specify the architecture to use.
 In theory, Podman for macOS ARM-based machines already ships configured with qemu to run x86-64 images.
 See https://github.com/containers/podman/issues/11458#issuecomment-1257268091 for details.
 
+# Troubleshooting
+
+This command uses [env_logger](https://github.com/rust-cli/env_logger/), so you can configure logging by using the `RUST_LOG` environment variable.
+In Bash, prefix a wrapper with `RUST_LOG=debug ` to print debugging information.
+
 # Migrating from cmdocker
 
 ```
