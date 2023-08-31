@@ -1,4 +1,5 @@
 use clap::Parser;
+use log::debug;
 use serde::{Deserialize, Serialize};
 use std::io::IsTerminal;
 
@@ -30,6 +31,7 @@ struct CmdainerConfig {
 }
 
 fn main() {
+    env_logger::init();
     let config: CmdainerConfig = confy::load("cmdainer", "cmdainer").unwrap();
     let arg0_str = std::env::args().next().unwrap();
     let arg0 = std::path::Path::new(&arg0_str)
@@ -177,9 +179,12 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
 
     process.arg(format!("--entrypoint={path}"));
     process.arg(image).args(args);
+    debug!("Running {:?}", process);
     process.status().unwrap().code().unwrap()
 }
 
 fn is_podman() -> bool {
-    which::which("podman").is_ok()
+    let result = which::which("podman");
+    debug!("checked for podman: {:?}", result);
+    result.is_ok()
 }

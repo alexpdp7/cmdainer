@@ -12,6 +12,8 @@ confy = "0.5.1"
 serde = { version = "1.0.188", features = ["derive"] }
 clap = { version = "4.4.1", features = ["derive"] }
 which = "4.4.0"
+log = { version = "0.4.20" }
+env_logger = { version = "0.10.0" }
 
 [target.'cfg(not(windows))'.dependencies]
 users = "0.11.0"
