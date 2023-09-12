@@ -162,9 +162,9 @@ dependencies = [
  "directories 5.0.1",
  "env_logger",
  "log",
+ "nix",
  "serde",
  "tempfile",
- "users",
  "which",
 ]
 
@@ -357,6 +357,17 @@ name = "memchr"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2dffe52ecf27772e601905b7522cb4ef790d2cc203488bbd0e2fe85fcb74566d"
+
+[[package]]
+name = "nix"
+version = "0.27.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2eb04e9c688eff1c89d72b407f168cf79bb9e867a9d3323ed6c01519eb9cc053"
+dependencies = [
+ "bitflags 2.4.0",
+ "cfg-if",
+ "libc",
+]
 
 [[package]]
 name = "once_cell"
@@ -586,16 +597,6 @@ name = "unicode-ident"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "301abaae475aa91687eb82514b328ab47a211a533026cb25fc3e519b86adfc3c"
-
-[[package]]
-name = "users"
-version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "24cc0f6d6f267b73e5a2cadf007ba8f9bc39c6a6f9666f8cf25ea809a153b032"
-dependencies = [
- "libc",
- "log",
-]
 
 [[package]]
 name = "utf8parse"
