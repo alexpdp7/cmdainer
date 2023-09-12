@@ -164,8 +164,8 @@ fn run_wrapper(config: &CmdainerConfig, wrapper: String, args: std::vec::Vec<Str
         #[cfg(not(windows))]
         process.arg("-u").arg(format!(
             "{}:{}",
-            users::get_current_uid(),
-            users::get_current_gid()
+            nix::unistd::getuid(),
+            nix::unistd::getgid(),
         ));
     }
 
