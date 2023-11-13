@@ -13,7 +13,7 @@ serde = { version = "1.0.192", features = ["derive"] }
 clap = { version = "4.4.7", features = ["derive"] }
 which = "5.0.0"
 log = { version = "0.4.20" }
-env_logger = { version = "0.10.0" }
+env_logger = { version = "0.10.1" }
 
 [target.'cfg(not(windows))'.dependencies]
 nix = { version = "0.27.1", features = ["user"] }
