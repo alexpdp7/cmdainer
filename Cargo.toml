@@ -10,7 +10,7 @@ edition = "2021"
 directories = "5.0.1"
 confy = "0.5.1"
 serde = { version = "1.0.193", features = ["derive"] }
-clap = { version = "4.4.11", features = ["derive"] }
+clap = { version = "4.4.12", features = ["derive"] }
 which = "5.0.0"
 log = { version = "0.4.20" }
 env_logger = { version = "0.10.1" }
@@ -19,5 +19,5 @@ env_logger = { version = "0.10.1" }
 nix = { version = "0.27.1", features = ["user"] }
 
 [dev-dependencies]
-tempfile = "3.8.1"
+tempfile = "3.9.0"
 assert_cmd = "2.0.12"
