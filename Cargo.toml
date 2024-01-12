@@ -8,7 +8,7 @@ edition = "2021"
 
 [dependencies]
 directories = "5.0.1"
-confy = "0.5.1"
+confy = "0.6.0"
 serde = { version = "1.0.194", features = ["derive"] }
 clap = { version = "4.4.14", features = ["derive"] }
 which = "5.0.0"
