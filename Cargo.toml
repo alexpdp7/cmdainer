@@ -20,4 +20,4 @@ nix = { version = "0.27.1", features = ["user"] }
 
 [dev-dependencies]
 tempfile = "3.9.0"
-assert_cmd = "2.0.12"
+assert_cmd = "2.0.13"
