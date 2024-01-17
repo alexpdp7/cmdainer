@@ -10,7 +10,7 @@ edition = "2021"
 directories = "5.0.1"
 confy = "0.6.0"
 serde = { version = "1.0.194", features = ["derive"] }
-clap = { version = "4.4.16", features = ["derive"] }
+clap = { version = "4.4.18", features = ["derive"] }
 which = "5.0.0"
 log = { version = "0.4.20" }
 env_logger = { version = "0.10.1" }
