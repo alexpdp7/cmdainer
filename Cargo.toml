@@ -16,7 +16,7 @@ log = { version = "0.4.20" }
 env_logger = { version = "0.11.2" }
 
 [target.'cfg(not(windows))'.dependencies]
-nix = { version = "0.27.1", features = ["user"] }
+nix = { version = "0.28.0", features = ["user"] }
 
 [dev-dependencies]
 tempfile = "3.10.0"
