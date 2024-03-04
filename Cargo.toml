@@ -8,11 +8,11 @@ edition = "2021"
 
 [dependencies]
 directories = "5.0.1"
-confy = "0.6.0"
+confy = "0.6.1"
 serde = { version = "1.0.197", features = ["derive"] }
 clap = { version = "4.5.1", features = ["derive"] }
 which = "6.0.0"
-log = { version = "0.4.20" }
+log = { version = "0.4.21" }
 env_logger = { version = "0.11.2" }
 
 [target.'cfg(not(windows))'.dependencies]
