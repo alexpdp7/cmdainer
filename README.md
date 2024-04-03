@@ -1,10 +1,15 @@
+ARCHIVED:
+
+I no longer use this.
+Check [whalebrew](https://github.com/whalebrew/whalebrew) for a similar project to run commands from container images.
+With [Distrobox](https://distrobox.it/) and [Toolbx](https://github.com/containers/toolbox), you can use a different distro that might contain the package you need.
+[ubpkg](https://github.com/alexpdp7/ubpkg/) might help you obtain upstream binaries if available.
+
 # Introduction
 
 Tries to make it easy to run commands from container images. Your home is mounted inside the container, so you can work on your files.
 
 This used to be called cmdocker. See below for migrating your configuration.
-
-Check [toolbx](https://containertoolbx.org) and [whalebrew](https://github.com/whalebrew/whalebrew) for similar projects.
 
 # Requirements and installation
 
